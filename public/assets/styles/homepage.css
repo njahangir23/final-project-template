@@ -1,31 +1,4 @@
-p {
-    color: blue;
-}
 
-.banner {
-    position: relative;
-    height: 500px;
-  }
-  
-  .banner-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-    z-index: -1;
-  }
-  
-  .banner-video video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    min-width: 100%;
-    min-height: 100%;
-  }
-  
   .banner-text {
     position: absolute;
     top: 50%;
@@ -34,10 +7,13 @@ p {
     text-align: center;
     z-index: 1;
     color: #fff;
+    font-family: "Karla", sans-serif;
+    font-style:normal;
+    font-weight:400;
   }
   
   .banner-text h1 {
-    font-size: 3rem;
+    font-size: 100px;
     margin-bottom: 20px;
   }
   
@@ -45,3 +21,47 @@ p {
     font-size: 1.5rem;
     margin-bottom: 30px;
   }
+
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #fff;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+    max-width: 500px;
+    padding: 20px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    background-color: #1e1e1e;
+}
+
+input, button {
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #1DB954;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1aa34a;
+}
+
+#playlist {
+    margin-top: 20px;
+    text-align: left;
+}

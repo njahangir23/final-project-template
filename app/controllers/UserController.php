@@ -71,11 +71,7 @@ class UserController extends Controller {
     }
 
     public function saveUser() {
-       $inputData = [
-          'firstName' => $_POST['firstName'] ?? false,
-          'lastName' => $_POST['lastName'] ?? false,
-       ];
-
+       $inputData = json_decode(file_get_contents('php://input'), true);
        $userData = $this->validateUser($inputData);
 
        $userModel = new User();
@@ -114,7 +110,7 @@ class UserController extends Controller {
 
         $userModel = new User();
         $result = $userModel->updateUser($id, [
-            'name' => $userData['firstName'] . ' ' . $usrData['lastName'],
+            'name' => $userData['firstName'] . ' ' . $userData['lastName'],
             'email' => $_PUT['email'] ?? '',
         ]);
 
@@ -129,29 +125,10 @@ class UserController extends Controller {
         exit();
     }
 
-    public function deleteUser($id){
-        if(!$id){
-            http_response_code(404);
-            echo json_encode(['error' => 'User ID is required.']);
-            exit ();
-        }
-
-        $userModel = new User();
-        $result = $userModel->deleteUser($id);
-
-        if($result){
-            http_response_code(200);
-            echo json_encode(['success' => true, 'message' => 'User deleted.']);
-        } else{
-            http_response_code(500);
-            echo json-encode(['error' => 'Failed to delete user.']);
-        }
-
-        exit ();
-    }
-
     public function usersView() {
-        $this->returnView('./assets/views/users/usersView.html');
+        $userModel = new User();
+        $user = $userModel->getUserById($userId);
+        $this->returnView('../assets/views/users/usersView.html');
     }
 
     public function usersAddView() {
@@ -159,13 +136,6 @@ class UserController extends Controller {
         exit();
     }
 
-    /**
-     * Render the delete user view page.
-     */
-    public function usersDeleteView() {
-        include '../public/assets/views/users/users-delete.html';
-        exit();
-    }
 
     /**
      * Render the update user view page.

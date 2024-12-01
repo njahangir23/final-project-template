@@ -30,6 +30,10 @@ class User extends Model {
      * Create a new user in the database.
      */
     public function createUser($data) {
+        $existingUser = $this->findByEmail($data['email']);
+        if ($existingUser) {
+            return false; // Email already exists
+        }
         $query = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
         return $this->query($query, [
             'name' => $data['name'],
@@ -48,14 +52,6 @@ class User extends Model {
             'name' => $data['name'],
             'email' => $data['email'],
         ]);
-    }
-
-    /**
-     * Delete a user by ID.
-     */
-    public function deleteUser($id) {
-        $query = "DELETE FROM $this->table WHERE id = :id";
-        return $this->query($query, ['id' => $id]);
     }
 
     /**

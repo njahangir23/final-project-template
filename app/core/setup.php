@@ -14,10 +14,10 @@ require '../app/controllers/RecommendationController.php';
 //set up env variables
 $env = parse_ini_file('../.example-env');
 
-define('DBNAME', $env['DBNAME']);
-define('DBHOST', $env['DBHOST']);
-define('DBUSER', $env['DBUSER']);
-define('DBPASS', $env['DBPASS']);
+define('DBNAME', $env['DBNAME'] ?? 'musicrecords');
+define('DBHOST', $env['DBHOST'] ?? '127.0.0.1');
+define('DBUSER', $env['DBUSER'] ?? 'root');
+define('DBPASS', $env['DBPASS'] ?? '');
 define('DBDRIVER', '');
 
 //set up other configs

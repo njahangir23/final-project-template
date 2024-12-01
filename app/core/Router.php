@@ -40,6 +40,12 @@ class Router {
             $userController = new UserController();
             $userController->getUsers();
         }
+
+        if ($this->urlArray[1] === 'users' && $this->urlArray[2] === 'view' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $userController = new UserController();
+            $userController->userView();
+        }
+    
     }
 
     protected function handleRecommendationRoutes() {

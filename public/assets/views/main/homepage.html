@@ -2,26 +2,136 @@
 <html>
     <head>
         <!-- remember to route relative to index.php  -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript" src="./assets/js/homepage.js"></script>
         <link rel="stylesheet" href="./assets/styles/homepage.css">
-       
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
         <link rel="icon" type="image/x-icon" href="./assets/pictures/favicon.ico">
+
+        <style>
+            .banner-text {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+                z-index: 1;
+                color: #fff;
+                font-family: "Karla", sans-serif;
+                font-style: normal;
+                font-weight: 400;
+            }
+
+            .banner {
+                position: relative;
+                height: 100vh; /* Make the banner take the full viewport height */
+                overflow: hidden;
+            }
+            
+            .banner-video {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                z-index: -1;
+            }
+
+            .banner-video video {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                min-width: 100%;
+                min-height: 100%;
+                object-fit: cover;
+            }
+
+            .intro{
+              color:#fff;
+            }
+
+            .welcome {
+                text-align: center;
+                margin: 20px auto;
+                padding: 20px;
+                font-family: "Karla", sans-serif;
+                font-size: 1.2rem;
+            }
+
+            .welcome-buttons {
+                text-align: center;
+                margin-top: 20px;
+            }
+
+            .welcome-buttons button {
+                padding: 10px 20px;
+                margin: 10px;
+                font-size: 16px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .login-btn {
+                background-color: #1DB954;
+                color: white;
+            }
+
+            .login-btn:hover {
+                background-color: #1aa34a;
+            }
+
+            .create-account-btn {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            .create-account-btn:hover {
+                background-color: #45a049;
+            }
+        </style>
     </head>
 
     <body>
-
-            <section class="banner">
-                <div class="banner-video">
-                  <video autoplay loop muted>
+        <section class="banner">
+            <div class="banner-video">
+                <video autoplay loop muted>
                     <source src="./assets/pictures/banner-image.mp4" type="video/mp4">
-                  </video>
-                </div>
-                <div class="banner-text">
-                  <h1>Your text here</h1>
-                  <p>Your subtext here</p>
-                </div>
-              </section>
+                </video>
+            </div>
+            <div class="banner-text">
+                <h1>Your Mus(ic) Records</h1>
+                <p class="intro">Your music. Your way. We're just here to help.</p>
+            </div>
+        </section>
 
+        <div class="welcome">
+            <h2>Are you an artist starting on your music career? Look no further we are here to help.</h2>
+            <br>
+            <h2>Your Mus(ic) Records is a music production platform here to help you find your inspiration and connect with
+                like-minded people.
+            </h2>
+
+            <!-- New buttons -->
+            <div class="welcome-buttons">
+                <button class="login-btn" onclick="location.href='user-login.html'">Login</button>
+                <button class="create-account-btn" onclick="location.href='./assets/views//users/users-add.html'">Create Account</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <h1>Playlist Generator</h1>
+            <p>Enter a word or mood to generate a Spotify playlist!</p>
+            <input type="text" id="userInput" placeholder="Enter a mood or word">
+            <button id="generateBtn">Generate Playlist</button>
+            <div id="playlist"></div>
+        </div>
     </body>
 </html>
-

@@ -1,4 +1,4 @@
-DBNAME=musicrecords
 DBHOST=127.0.0.1
+DBNAME=musicrecords
 DBUSER=root
-DBPASS=
+DBPASS=' '
