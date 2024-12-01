@@ -1,4 +1,4 @@
-DBNAME=your db name
-DBHOST=localhost
-DBUSER=user name
-DBPASS=password name
+DBNAME=musicrecords
+DBHOST=127.0.0.1
+DBUSER=root
+DBPASS=

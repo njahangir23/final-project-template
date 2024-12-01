@@ -2,6 +2,9 @@
 
 namespace app\models;
 
+use PDO;
+use PDOException;
+
 abstract class Model {
 
     public function findAll() {
@@ -10,8 +13,9 @@ abstract class Model {
     }
 
     private function connect() {
-        $string = "mysql:hostname=" . DBHOST . ";dbname=" . DBNAME;
-        $con = new \PDO($string, DBUSER, DBPASS);
+        $string = "mysql:host=" . DBHOST . ";dbname=" . DBNAME;
+        $con = new \PDO($string, DBUSER, DBPASS ? DBPASS : '');
+        $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $con;
     }
 

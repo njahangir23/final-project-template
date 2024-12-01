@@ -9,10 +9,10 @@ abstract class Controller {
         exit();
     }
 
-    public function returnJSON($json) {
+    public function returnJSON($data) {
         header("Content-Type: application/json");
-        echo json_encode($json);
-        exit();
+        echo json_encode($data);
+        exit;
     }
 
 

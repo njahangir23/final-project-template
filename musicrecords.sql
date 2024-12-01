@@ -1,0 +1,16 @@
+-- DROP TABLE IF EXISTS musicrecords;
+
+CREATE DATABASE musicrecords;
+
+USE `musicrecords`;
+
+CREATE TABLE `users` 
+(
+    `id`   int(11) NOT NULL AUTO_INCREMENT,
+    `firstName` varchar(254) NOT NULL,
+    `lastName` varchar(254) NOT NULL,
+    `email` varchar(254) NOT NULL,
+    `password` varchar(254) NOT NULL,
+    primary key (`id`)
+);
+

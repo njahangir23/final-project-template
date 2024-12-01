@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Recommendations</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Find Artists Similar to Your Favorites</h1>
+        <form id="recommendation-form">
+            <input type="text" id="query" placeholder="Enter an artist name or vibe..." required>
+            <button type="submit">Get Recommendations</button>
+        </form>
+        <div id="recommendation-results">
+            <!-- Results will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+    document.getElementById('recommendation-form').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const query = document.getElementById('query').value.trim();  // Get user input
+        const resultsContainer = document.getElementById('recommendation-results');
+        resultsContainer.innerHTML = '<p>Loading...</p>';
+
+        if (!query) {
+            resultsContainer.innerHTML = '<p class="error">Please enter an artist name or vibe.</p>';
+            return;
+        }
+
+        try {
+            // Use the correct endpoint that calls the recommendation.php controller
+            const response = await fetch('/recommendation.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ query: query }) // Send the query as a JSON object
+            });
+            const data = await response.json();
+
+            if (data.error) {
+                resultsContainer.innerHTML = `<p class="error">${data.message}</p>`;
+            } else if (data.data && data.data.length > 0) {
+                // Display recommendations
+                resultsContainer.innerHTML = '<ul>' + 
+                    data.data.map(item => 
+                        `<li><strong>${item.name}</strong> - Followers: ${item.followers}</li>`
+                    ).join('') + 
+                    '</ul>';
+            } else {
+                resultsContainer.innerHTML = '<p>No recommendations found for the provided artist.</p>';
+            }
+        } catch (error) {
+            resultsContainer.innerHTML = '<p class="error">An error occurred while fetching recommendations.</p>';
+        }
+    });
+    </script>
+</body>
+</html>

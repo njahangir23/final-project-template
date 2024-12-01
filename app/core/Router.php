@@ -4,6 +4,7 @@ namespace app\core;
 
 use app\controllers\MainController;
 use app\controllers\UserController;
+use app\controllers\RecommendationController;
 
 class Router {
     public $urlArray;
@@ -13,6 +14,7 @@ class Router {
         $this->urlArray = $this->routeSplit();
         $this->handleMainRoutes();
         $this->handleUserRoutes();
+        $this->handleRecommendationRoutes();
     }
 
     protected function routeSplit() {
@@ -39,4 +41,27 @@ class Router {
             $userController->getUsers();
         }
     }
-}
+
+    protected function handleRecommendationRoutes() {
+        if($this->urlArray[1] === 'recommendations' && $_SERVER['REQUEST_METHOD'] === 'GET' && !isset($this->urlArray[2])) {
+            $recommendationController = new RecommendationController();
+            $recommendationController->recommendationView();
+        }
+
+        if($this->urlArray[1] === 'api' && $this->urlArray[2] === 'recommendations' && $_SERVER['REQUEST_METHOD'] === 'GET'){
+            if(isset($_GET['artist']) && !empty($_GET['artist'])) {
+                $artist = $_GET['artist'];
+                $recommendationController = new RecommendationController();
+                $recommendationController->getRecommendations($artist);
+            } else {
+                header("Content-Type: application/json");
+                echo json_encode([
+                    'error' => true,
+                    'message' => "Artist name is required."
+                ]);
+                exit();
+            }
+        }
+    }
+
+ }
