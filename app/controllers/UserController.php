@@ -13,6 +13,21 @@ class UserController extends Controller {
         exit();
     }
 
+    public function login() {
+        $inputData = [
+            'email' => $_POST['email'] ? $_POST['email'] : false,
+            'password' => $_POST['password'] ? $_POST['password'] : false,
+        ];
+
+        $user = new User();
+        $authedUser = $user->login(
+            [
+                'email' => $inputData['email'],
+                'password' => $inputData['password'],
+            ]
+        );
+    }
+
     public function validateUser($inputData){
        $errors = [];
        $firstName = $inputData['firstName'];
@@ -125,23 +140,78 @@ class UserController extends Controller {
         exit();
     }
 
+    public function register()
+{
+    // Initialize error array
+    $errors = [];
+
+    // Validate first name
+    if (empty($_POST['firstName']) || strlen(trim($_POST['firstName'])) < 2) {
+        $errors['firstName'] = "First name is required and must be at least 2 characters long.";
+    }
+
+    // Validate last name
+    if (empty($_POST['lastName']) || strlen(trim($_POST['lastName'])) < 2) {
+        $errors['lastName'] = "Last name is required and must be at least 2 characters long.";
+    }
+
+    // Validate email
+    if (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = "A valid email address is required.";
+    }
+
+    // Validate password
+    if (empty($_POST['password']) || strlen($_POST['password']) < 8) {
+        $errors['password'] = "Password is required and must be at least 8 characters long.";
+    }
+
+    // If there are validation errors, return them
+    if (!empty($errors)) {
+        http_response_code(400); // Bad Request
+        $this->returnJSON([
+            'errors' => $errors
+        ]);
+        return;
+    }
+
+    // Prepare validated input data
+    $inputData = [
+        'firstName' => trim($_POST['firstName']),
+        'lastName' => trim($_POST['lastName']),
+        'email' => trim($_POST['email']),
+        'password' => $_POST['password'], // Raw password; will hash in the model
+    ];
+
+    $user = new User();
+
+    // Attempt to save the user
+    $result = $user->saveUser($inputData);
+
+    if ($result) {
+        http_response_code(200);
+        $this->returnJSON([
+            'route' => '/login'
+        ]);
+    } else {
+        // Handle save failure (e.g., duplicate email)
+        http_response_code(500); // Internal Server Error
+        $this->returnJSON([
+            'errors' => ['email' => 'Email address already in use.']
+        ]);
+    }
+}
+
     public function usersView() {
         $userModel = new User();
         $user = $userModel->getUserById($userId);
-        $this->returnView('../assets/views/users/usersView.html');
+        $this->returnView('./assets/views/users/usersView.html');
     }
 
-    public function usersAddView() {
-        include '../public/assets/views/users/users-add.html';
-        exit();
+    public function loginView(){
+        $this->returnView('./assets/views/users/login.html');
     }
 
-
-    /**
-     * Render the update user view page.
-     */
-    public function usersUpdateView() {
-        include '../public/assets/views/users/users-update.html';
-        exit();
+    public function registerView(){
+        $this->returnView('./assets/views/users/users-add.html');
     }
 }

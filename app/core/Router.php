@@ -35,6 +35,27 @@ class Router {
             $userController->usersView();
         }
 
+        if($this->urlArray[1]=== 'login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $userController = new UserController();
+            $userController->loginView();
+        }
+
+        if ($this->urlArray[1] === 'register' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $userController = new UserController();
+            $userController->registerView();
+        }
+
+        if ($this->urlArray[1] === 'api' && $this->urlArray[2] === 'register' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userController = new UserController();
+            $userController->register();
+        }
+
+        // Route to handle login (POST request)
+        if ($this->urlArray[1] === 'api' && $this->urlArray[2] === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userController = new UserController();
+            $userController->login();
+        }
+
         //give json/API requests a api prefix
         if ($this->urlArray[1] === 'api' && $this->urlArray[2] === 'users' && $_SERVER['REQUEST_METHOD'] === 'GET') {
             $userController = new UserController();
@@ -47,27 +68,4 @@ class Router {
         }
     
     }
-
-    protected function handleRecommendationRoutes() {
-        if($this->urlArray[1] === 'recommendations' && $_SERVER['REQUEST_METHOD'] === 'GET' && !isset($this->urlArray[2])) {
-            $recommendationController = new RecommendationController();
-            $recommendationController->recommendationView();
-        }
-
-        if($this->urlArray[1] === 'api' && $this->urlArray[2] === 'recommendations' && $_SERVER['REQUEST_METHOD'] === 'GET'){
-            if(isset($_GET['artist']) && !empty($_GET['artist'])) {
-                $artist = $_GET['artist'];
-                $recommendationController = new RecommendationController();
-                $recommendationController->getRecommendations($artist);
-            } else {
-                header("Content-Type: application/json");
-                echo json_encode([
-                    'error' => true,
-                    'message' => "Artist name is required."
-                ]);
-                exit();
-            }
-        }
-    }
-
  }

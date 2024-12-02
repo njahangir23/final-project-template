@@ -29,17 +29,10 @@ class User extends Model {
     /**
      * Create a new user in the database.
      */
-    public function createUser($data) {
-        $existingUser = $this->findByEmail($data['email']);
-        if ($existingUser) {
-            return false; // Email already exists
-        }
-        $query = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
-        return $this->query($query, [
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => password_hash($data['password'], PASSWORD_BCRYPT),
-        ]);
+    public function createUser($inputData) {
+        $inputData['password'] = password_hash($inputData['password'], PASSWORD_DEFAULT);
+        $query = "INSERT INTO users (firstName, lastName, email, password) VALUES (:firstName, :lastName, :email, :password);";
+        return $this->query($query, $inputData);
     }
 
     /**
@@ -54,15 +47,17 @@ class User extends Model {
         ]);
     }
 
-    /**
-     * Authenticate a user by email and password.
-     */
-    public function authenticateUser($email, $password) {
-        $user = $this->findByEmail($email);
-        if ($user && password_verify($password, $user[0]->password)) {
-            return $user[0];
+    public function login($inputData) {
+        $query = "SELECT id, firstName, lastName, email, password 
+                  FROM users 
+                 WHERE email = :email;";                         // SQL to get member data
+        $member = $this->query($query, ['email' => $inputData['email']]);    // Run SQL
+        if (!$member) {                                          // If no member found
+            return false;                                        // Return false
         }
-        return false;
+
+        $authenticated = password_verify($inputData['password'], $member[0]['password']); // Passwords match?
+        return ($authenticated ? $member[0] : false);
     }
 
 }

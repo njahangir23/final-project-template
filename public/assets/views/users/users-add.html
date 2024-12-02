@@ -195,10 +195,10 @@
             e.preventDefault();
 
             // Collect input values
-            const firstName = $('#firstName').val().trim();
-            const lastName = $('#lastName').val().trim();
-            const email = $('#email').val().trim();
-            const password = $('#password').val().trim();
+            var firstName = $('#firstName').val().trim();
+            var lastName = $('#lastName').val().trim();
+            var email = $('#email').val().trim();
+            var password = $('#password').val().trim();
 
             const data = { firstName, lastName, email, password };
 
@@ -208,45 +208,19 @@
 
             // Send POST request to create the user
             $.ajax({
-                url: '/api/users', // Relative URL for API
+                url: 'http://localhost/api/users', // Relative URL for API
                 type: "POST",
-                data: JSON.stringify(data),
-                contentType: "application/json",
+                data: data,
                 dataType: "json",
-                success: function () {
+                success: function (data) {
                     $('#success-message').fadeIn(); // Show success message
                     $('#form-id')[0].reset(); // Reset form fields
-                    setTimeout(function() {
-                        window.location.replace("/users/view"); // Redirect to user view page
-                    }, 2000);
+                    window.location.replace("/users/view"); // Redirect to user view page
+            
                 },
-                error: function (xhr) {
+                error: function (data) {
                     // Handle validation errors
-                    const errors = xhr.responseJSON || {};
-                    if (errors.requiredFirstName) {
-                        $('#firstName').addClass('error-border');
-                        $('#firstName-error').text(errors.requiredFirstName);
-                    }
-                    if (errors.firstNameShort) {
-                        $('#firstName').addClass('error-border');
-                        $('#firstName-error').append(` ${errors.firstNameShort}`);
-                    }
-                    if (errors.requiredLastName) {
-                        $('#lastName').addClass('error-border');
-                        $('#lastName-error').text(errors.requiredLastName);
-                    }
-                    if (errors.lastNameShort) {
-                        $('#lastName').addClass('error-border');
-                        $('#lastName-error').append(` ${errors.lastNameShort}`);
-                    }
-                    if (errors.requiredEmail) {
-                        $('#email').addClass('error-border');
-                        $('#email-error').text(errors.requiredEmail);
-                    }
-                    if (errors.requiredPassword) {
-                        $('#password').addClass('error-border');
-                        $('#password-error').text(errors.requiredPassword);
-                    }
+                  console.log(data)
                 }
             });
         });
