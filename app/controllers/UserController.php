@@ -26,12 +26,20 @@ class UserController extends Controller {
                 'password' => $inputData['password'],
             ]
         );
+        
+        http_response_code(200);
+        $this->returnJSON([
+            'route' => '/'
+        ]);
+
     }
 
     public function validateUser($inputData){
        $errors = [];
        $firstName = $inputData['firstName'];
        $lastName = $inputData['lastName'];
+       $email= $inputData['email'];
+       $password= $inputData['password'];
 
        if($firstName){
           $firstName = htmlspecialchars($firstName, ENT_QUOTES | ENT_HTML5, 'UTF-8', true);
@@ -50,6 +58,7 @@ class UserController extends Controller {
        } else {
         $errors['requiredLastName'] = 'last name is required';
        }
+
        
 
        if(count($errors)){
@@ -61,6 +70,8 @@ class UserController extends Controller {
        return [
           'firstName' => $firstName,
           'lastName' => $lastName,
+          'email' => $email,
+          'password' => $password,
        ];
     }
 
@@ -90,7 +101,7 @@ class UserController extends Controller {
        $userData = $this->validateUser($inputData);
 
        $userModel = new User();
-       $result = $userModel->createUser([
+       $result = $userModel->creaeteUser([
            'name' => $userData['firstName'] . ' ' . $userData['lastName'],
            'email' => $_POST['email'] ?? '',
            'password' => $_POST['password'] ?? '',
@@ -140,9 +151,9 @@ class UserController extends Controller {
         exit();
     }
 
-    public function register()
-{
-    // Initialize error array
+    public function register() {
+    
+    
     $errors = [];
 
     // Validate first name
@@ -202,13 +213,11 @@ class UserController extends Controller {
 }
 
     public function usersView() {
-        $userModel = new User();
-        $user = $userModel->getUserById($userId);
         $this->returnView('./assets/views/users/usersView.html');
     }
 
     public function loginView(){
-        $this->returnView('./assets/views/users/login.html');
+        $this->returnView('./assets/views/users/users-update.html');
     }
 
     public function registerView(){

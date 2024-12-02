@@ -14,16 +14,14 @@ class User extends Model {
      * Find a user by ID.
      */
     public function getUserById($id) {
-        $query = "select * from users where id = :id";
+        $query = "select id, firstName, lastName, email
+                  from users 
+                  where id = :id;";
+        $user = $this->query($query, ['id' => $id]);    // Run SQL
+        if (!$user) {                                          // If no member found
+            return false;                                        // Return false
+        }
         return $this->query($query, ['id' => $id]);
-    }
-
-    /**
-     * Find a user by email.
-     */
-    public function findByEmail($email) {
-        $query = "SELECT * FROM users WHERE email = :email";
-        return $this->query($query, ['email' => $email]);
     }
 
     /**
@@ -35,17 +33,6 @@ class User extends Model {
         return $this->query($query, $inputData);
     }
 
-    /**
-     * Update user information by ID.
-     */
-    public function updateUser($id, $data) {
-        $query = "UPDATE $this->table SET name = :name, email = :email WHERE id = :id";
-        return $this->query($query, [
-            'id' => $id,
-            'name' => $data['name'],
-            'email' => $data['email'],
-        ]);
-    }
 
     public function login($inputData) {
         $query = "SELECT id, firstName, lastName, email, password 

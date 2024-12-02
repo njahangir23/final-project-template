@@ -124,13 +124,11 @@
         <h2>Are you an artist starting your music career? Look no further; we are here to help.</h2>
         <h2>Your Mus(ic) Records is a music production platform to inspire and connect like-minded people.</h2>
 
-        <div class="welcome-buttons">
-            <!-- Login Button -->
-            <button class="login-btn" id="loginButton">Login</button>
-            <!-- Create Account Button -->
-            <button class="create-account-btn" id="createAccountButton">Create Account</button>
-        </div>
     </div>
+    <a href="http://localhost/register" class="link">Register</a>
+    <a href ="http://localhost/login" class ="link"> Login</a>
+
+
 
     <script>
         $(document).ready(function () {
@@ -154,13 +152,13 @@
             // Create Account Button Click Event
             $('#createAccountButton').click(function () {
                 $.ajax({
-                    url: 'http://localhost/api/register',
+                    url: 'http://localhost/register',
                     type: 'GET',
                     dataType: 'json',
                     success: function (response) {
                         console.log('Create Account functionality here');
                         // Redirect to account creation page
-                        window.location.href = './assets/views/users/users-add.html';
+                        //window.location.href = './assets/views/users/users-add.html';
                     },
                     error: function (error) {
                         console.error('Error:', error);
