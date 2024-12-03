@@ -1,14 +1,15 @@
 <?php
 
+use \app\core\AuthHelper;
+
 //require our files, remember should be relative to index.php
 require '../app/core/Router.php';
 require '../app/models/Model.php';
-require '../app/models/Recommendations.php';
-require '../app/models/User.php';
 require '../app/controllers/Controller.php';
 require '../app/controllers/MainController.php';
 require '../app/controllers/UserController.php';
-require '../app/controllers/RecommendationController.php';
+require '../app/models/User.php';
+require '../app/core/AuthHelper.php';
 
 
 //set up env variables
@@ -22,3 +23,5 @@ define('DBDRIVER', '');
 
 //set up other configs
 define('DEBUG', true);
+
+$session = AuthHelper::checkSession();

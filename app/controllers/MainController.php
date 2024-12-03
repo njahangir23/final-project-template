@@ -2,15 +2,39 @@
 
 namespace app\controllers;
 
+use app\core\AuthHelper;
+use app\models\User;
+
 class MainController extends Controller {
 
     public function homepage() {
-        //remember to route relative to index.php
-        //require page and exit to return an HTML page
+        AuthHelper::nonAuthRoute();
         $this->returnView('./assets/views/main/homepage.html');
     }
 
     public function notFound() {
     }
+
+    public function appData() {
+        AuthHelper::authRoute();
+
+        if (isset($_SESSION['id'])) {
+            $userModel = new User();
+            $user = $userModel->getUserByID($_SESSION['id']);
+            http_response_code(200);
+            $this->returnJSON([
+                'currentUser' => [
+                    'firstName' => $user['firstName'],
+                    'lastName' => $user['lastName'],
+                    'email' => $user['email'],
+                ]
+            ]);
+        }
+
+        http_response_code(500);
+        $this->returnJSON([
+            'error' => 'something happened'
+        ]);
+    }   
 
 }

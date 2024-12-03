@@ -1,5 +1,3 @@
--- DROP TABLE IF EXISTS musicrecords;
-
 CREATE DATABASE musicrecords;
 
 USE `musicrecords`;
@@ -11,6 +9,7 @@ CREATE TABLE `users`
     `lastName` varchar(254) NOT NULL,
     `email` varchar(254) NOT NULL,
     `password` varchar(254) NOT NULL,
+    `sessionExpiration` TIMESTAMP NULL,
     primary key (`id`)
 );
 

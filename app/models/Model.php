@@ -13,9 +13,8 @@ abstract class Model {
     }
 
     private function connect() {
-        $string = "mysql:host=" . DBHOST . ";dbname=" . DBNAME;
+        $string = "mysql:hostname=" . DBHOST . ";dbname=" . DBNAME;
         $con = new \PDO($string, DBUSER, DBPASS ? DBPASS : '');
-        $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $con;
     }
 

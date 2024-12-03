@@ -6,6 +6,11 @@ class User extends Model {
 
     protected $table = 'users';
 
+    public function updateUserSessionExp($inputData){
+        $query = "update users set sessionExpiration = :sessionExpiration where id = :id";
+        return $this->query($query, $inputData);
+    }
+
     public function getAllUsers() {
         return $this->findAll();
     }
@@ -14,22 +19,23 @@ class User extends Model {
      * Find a user by ID.
      */
     public function getUserById($id) {
-        $query = "select id, firstName, lastName, email
+        $query = "select id, firstName, lastName, email, seesionExpiration
                   from users 
                   where id = :id;";
         $user = $this->query($query, ['id' => $id]);    // Run SQL
         if (!$user) {                                          // If no member found
             return false;                                        // Return false
         }
-        return $this->query($query, ['id' => $id]);
+        return $user[0];
     }
 
     /**
      * Create a new user in the database.
      */
-    public function createUser($inputData) {
+    public function saveUser($inputData) {
         $inputData['password'] = password_hash($inputData['password'], PASSWORD_DEFAULT);
         $query = "INSERT INTO users (firstName, lastName, email, password) VALUES (:firstName, :lastName, :email, :password);";
+
         return $this->query($query, $inputData);
     }
 

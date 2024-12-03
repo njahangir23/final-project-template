@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <!-- Meta and Resource Links -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="./assets/styles/homepage.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap" rel="stylesheet">
@@ -17,14 +16,14 @@
             margin: 0;
             font-family: 'Karla', sans-serif;
         }
-        
+
         .banner {
             position: relative;
             height: 100vh;
             overflow: hidden;
         }
 
-        .banner-video video {
+        .banner-video {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -32,6 +31,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            z-index: -1; /* Keep the video behind text */
         }
 
         .banner-text {
@@ -41,6 +41,7 @@
             transform: translate(-50%, -50%);
             color: white;
             text-align: center;
+            z-index: 1; /* Ensure text is above video */
         }
 
         .banner-text h1 {
@@ -102,6 +103,17 @@
         #playlist {
             margin-top: 20px;
         }
+
+        /* Styling for links */
+        .link {
+            text-decoration: none;
+            color: #1DB954;
+            font-size: 16px;
+        }
+
+        .link:hover {
+            color: #1aa34a;
+        }
     </style>
 </head>
 
@@ -109,8 +121,12 @@
     <!-- Banner Section -->
     <section class="banner">
         <div class="banner-video">
+            <!-- Adding multiple source formats for compatibility -->
             <video autoplay loop muted>
                 <source src="./assets/pictures/banner-image.mp4" type="video/mp4">
+                <source src="./assets/pictures/banner-image.ogv" type="video/ogg">
+                <source src="./assets/pictures/banner-image.webm" type="video/webm">
+                Your browser does not support the video tag.
             </video>
         </div>
         <div class="banner-text">
@@ -123,50 +139,13 @@
     <div class="welcome">
         <h2>Are you an artist starting your music career? Look no further; we are here to help.</h2>
         <h2>Your Mus(ic) Records is a music production platform to inspire and connect like-minded people.</h2>
-
     </div>
-    <a href="http://localhost/register" class="link">Register</a>
-    <a href ="http://localhost/login" class ="link"> Login</a>
 
+    <!-- Register & Login Links -->
+    <div class="welcome-buttons">
+        <a href="http://localhost/register" class="link">Register</a>
+        <a href="http://localhost/login" class="link">Login</a>
+    </div>
 
-
-    <script>
-        $(document).ready(function () {
-            // Login Button Click Event
-            $('#loginButton').click(function () {
-                $.ajax({
-                    url: 'http://localhost/api/login',
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (response) {
-                        console.log('Login functionality here');
-                        // Redirect to the login page or handle UI update
-                        window.location.href = 'user-login.html';
-                    },
-                    error: function (error) {
-                        console.error('Error:', error);
-                    }
-                });
-            });
-
-            // Create Account Button Click Event
-            $('#createAccountButton').click(function () {
-                $.ajax({
-                    url: 'http://localhost/register',
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (response) {
-                        console.log('Create Account functionality here');
-                        // Redirect to account creation page
-                        //window.location.href = './assets/views/users/users-add.html';
-                    },
-                    error: function (error) {
-                        console.error('Error:', error);
-                    }
-                });
-            });
-          });
-
-    </script>
 </body>
 </html>

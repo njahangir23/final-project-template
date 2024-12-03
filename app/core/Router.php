@@ -4,7 +4,6 @@ namespace app\core;
 
 use app\controllers\MainController;
 use app\controllers\UserController;
-use app\controllers\RecommendationController;
 
 class Router {
     public $urlArray;
@@ -14,7 +13,6 @@ class Router {
         $this->urlArray = $this->routeSplit();
         $this->handleMainRoutes();
         $this->handleUserRoutes();
-        $this->handleRecommendationRoutes();
     }
 
     protected function routeSplit() {
@@ -54,6 +52,11 @@ class Router {
         if ($this->urlArray[1] === 'api' && $this->urlArray[2] === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController = new UserController();
             $userController->login();
+        }
+
+        if ($this->urlArray[1] === 'api' && $this->urlArray[2] === 'logout' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            $authController = new UserController();
+            $authController->logout();
         }
 
         //give json/API requests a api prefix
