@@ -11,7 +11,7 @@ class AuthHelper
     public static function authRoute() {
         if (!isset($_SESSION['id'])) {
             http_response_code(401);
-            header('Location: /');
+            header('Location: /login');
             exit();
         }
     }

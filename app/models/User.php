@@ -18,8 +18,8 @@ class User extends Model {
     /**
      * Find a user by ID.
      */
-    public function getUserById($id) {
-        $query = "select id, firstName, lastName, email, seesionExpiration
+    public function getUserByID($id) {
+        $query = "select id, firstName, lastName, email, sessionExpiration
                   from users 
                   where id = :id;";
         $user = $this->query($query, ['id' => $id]);    // Run SQL
@@ -48,6 +48,8 @@ class User extends Model {
         if (!$member) {                                          // If no member found
             return false;                                        // Return false
         }
+
+        $password = is_object($member[0]) ? $member[0]->password : $member[0]['password'];
 
         $authenticated = password_verify($inputData['password'], $member[0]['password']); // Passwords match?
         return ($authenticated ? $member[0] : false);

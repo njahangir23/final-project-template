@@ -23,7 +23,7 @@ abstract class Model {
         $stm = $con->prepare($query);
         $check = $stm->execute($data);
         if ($check) {
-            $result = $stm->fetchAll(\PDO::FETCH_OBJ);
+            $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
             if (is_array($result) && count($result)) {
                 return $result;
             }

@@ -46,11 +46,11 @@ class UserController extends Controller {
         );
 
         AuthHelper::startSession($authedUser);
-        
+
         http_response_code(200);
         $this->returnJSON([
-            'route' => '/'
-        ]);
+            'route' => '/usersView'
+        ]); 
 
     }
 
@@ -87,7 +87,7 @@ class UserController extends Controller {
         $errors['requiredLastName'] = 'last name is required';
        }
 
-       
+
 
 
 
@@ -103,27 +103,6 @@ class UserController extends Controller {
           'email' => $email,
           'password' => $password,
        ];
-    }
-
-    public function getUserByID($id){
-        if(!$id) {
-            http_response_code(404);
-            echo json_encode(['error'=> 'User ID is required.']);
-            exit();
-        }
-
-        $userModel = new User();
-        header("Content-Type:application/json");
-        $user = $userModel->getUserById($id);
-
-        if(!$user){
-            http_response_code(404);
-            echo json_encode(['error' => 'User not found.']);
-            exit();
-        }
-
-        echo json_encode($user);
-        exit();
     }
 
     public function register() {

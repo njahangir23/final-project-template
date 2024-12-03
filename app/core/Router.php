@@ -25,13 +25,14 @@ class Router {
             $mainController = new MainController();
             $mainController->homepage();
         }
+
+        if ($this->urlArray[1] === 'api' && $this->urlArray[2] === 'app-data' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $mainController = new MainController();
+            $mainController->appData();
+        }
     }
 
     protected function handleUserRoutes() {
-        if ($this->urlArray[1] === 'users' && $_SERVER['REQUEST_METHOD'] === 'GET') {
-            $userController = new UserController();
-            $userController->usersView();
-        }
 
         if($this->urlArray[1]=== 'login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
             $userController = new UserController();
@@ -65,9 +66,9 @@ class Router {
             $userController->getUsers();
         }
 
-        if ($this->urlArray[1] === 'users' && $this->urlArray[2] === 'view' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+        if ($this->urlArray[1] === 'usersView' && $_SERVER['REQUEST_METHOD'] === 'GET') {
             $userController = new UserController();
-            $userController->userView();
+            $userController->usersView();
         }
     
     }

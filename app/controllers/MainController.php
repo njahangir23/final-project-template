@@ -12,8 +12,6 @@ class MainController extends Controller {
         $this->returnView('./assets/views/main/homepage.html');
     }
 
-    public function notFound() {
-    }
 
     public function appData() {
         AuthHelper::authRoute();

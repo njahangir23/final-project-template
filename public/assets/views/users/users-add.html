@@ -171,10 +171,6 @@
         <button type="submit" class="submit-button">Create Account</button>
     </form>
 
-    <div class="success-message" id="success-message">
-        Your account has been created successfully!
-    </div>
-
     <div class="footer">
         <p>Already have an account? <a href="/login">Login</a></p>
     </div>
@@ -203,7 +199,7 @@
                 data: data,
                 dataType: "json",
                 success: function (data) {
-                    window.location.replace("/users/view"); // Redirect to user view page
+                    window.location.replace(data.route); // Redirect to user view page
             
                 },
                 error: function (data) {
