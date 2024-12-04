@@ -1,25 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Your Mus(ic) Records</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="icon" type="image/x-icon" href="./assets/pictures/favicon.ico">
+
+    <style>
+        /* General body style */
+        body {
+            background-color: #1f1f1f;
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        /* Welcome message styling */
+        #user-container h4 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #f39c12;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
+            animation: fadeIn 2s ease-out, slideIn 1.5s ease-out;
+        }
+
+        /* Smooth fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Slide-in from the top animation */
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Logout button styling */
+        #logout-button {
+            background: linear-gradient(145deg, #f39c12, #ff7f00);
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 12px 30px;
+            border-radius: 30px;
+            transition: 0.3s ease-in-out;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        /* Hover effect for the logout button */
+        #logout-button:hover {
+            background: linear-gradient(145deg, #ff7f00, #f39c12);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+        }
+
+        #logout-button:active {
+            transform: translateY(5px);
+        }
+
+        /* Responsive container */
+        .container {
+            margin-top: 20px;
+        }
+
+        .margin-thirty {
+            margin-top: 30px;
+        }
+
+        .margin-twenty {
+            margin-top: 20px;
+        }
+
+        /* Styling for the audio grid */
+        .audio-box {
+            background-color: #333;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .audio-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .audio-box audio {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .audio-caption {
+            color: #f39c12;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body>
     <div id="user-container" class="container users-form margin-thirty"></div>
+
+    <!-- 3x3 Grid of Sound Clips -->
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Box 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="audio-box">
+                    <audio controls>
+                        <source src="./assets/audio/mysbeat.wav" type="audio/wav">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="audio-caption">Sound Clip 1</div>
+                </div>
+            </div>
+
+            <!-- Box 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="audio-box">
+                    <audio controls>
+                        <source src="./assets/audio/sci-fi.wav" type="audio/wav">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="audio-caption">Sound Clip 2</div>
+                </div>
+            </div>
+
+            <!-- Box 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="audio-box">
+                    <audio controls>
+                        <source src="./assets/audio/morning.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="audio-caption">Folk, Middle of Farm Type Beat</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Box 4 -->
+            <div class="col-md-4 mb-4">
+                <div class="audio-box">
+                    <audio controls>
+                        <source src="./assets/audio/funny-garage.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="audio-caption">Remind you of something?</div>
+                </div>
+            </div>
+
+            <!-- Box 5 -->
+            <div class="col-md-4 mb-4">
+                <div class="audio-box">
+                    <audio controls>
+                        <source src="./assets/audio/horror.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="audio-caption">Spooky</div>
+                </div>
+            </div>
+
+            <!-- Box 6 -->
+            <div class="col-md-4 mb-4">
+                <div class="audio-box">
+                    <audio controls>
+                        <source src="./assets/audio/bbackground.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="audio-caption">Pop</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Box 7 -->
+            <div class="col-md-4 mb-4">
+                <div class="audio-box">
+                    <audio controls>
+                        <source src="./assets/audio/steampunk.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="audio-caption">Get Punky</div>
+                </div>
+            </div>
+
+            <!-- Box 8 -->
+            <div class="col-md-4 mb-4">
+                <div class="audio-box">
+                    <audio controls>
+                        <source src="./assets/audio/snow.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="audio-caption">Snowy</div>
+                </div>
+            </div>
+
+            <!-- Box 9 -->
+            <div class="col-md-4 mb-4">
+                <div class="audio-box">
+                    <audio controls>
+                        <source src="./assets/audio/upbeat.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="audio-caption">Upbeat Indie</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container users-form margin-twenty">
-        <button id="logout-button" class="btn btn-danger">logout</button>
+        <button id="logout-button" class="btn btn-danger">Logout</button>
     </div>
 
     <script>
         $(document).ready(function () {
-            // Get current user data
+            // Fetch current user data
             $.ajax({
                 url: `http://localhost/api/app-data`,
                 type: "GET",
@@ -49,5 +267,7 @@
         });
     </script>
 </body>
+
 </html>
+
 
