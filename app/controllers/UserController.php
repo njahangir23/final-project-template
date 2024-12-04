@@ -86,9 +86,22 @@ class UserController extends Controller {
        } else {
         $errors['requiredLastName'] = 'last name is required';
        }
-
-
-
+       if ($email) {
+        $email= htmlspecialchars($email, ENT_QUOTES|ENT_HTML5, 'UTF-8', true);
+        if (strlen($email) < 2) {
+            $errors['emailShort'] = 'Email is too short';
+        }
+       } else {
+        $errors['requiredEmail'] = 'Email is required';
+       }
+       if ($password) {
+        $password = htmlspecialchars($password, ENT_QUOTES|ENT_HTML5, 'UTF-8', true);
+        if (strlen($password) < 2) {
+            $errors['passwordShort'] = 'Password is too short';
+        }
+       } else {
+        $errors['requiredPassword'] = 'Password is required';
+       }
 
 
        if(count($errors)){

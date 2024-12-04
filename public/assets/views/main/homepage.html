@@ -72,7 +72,7 @@
         .welcome h2 {
             font-size: 1.5rem;
             margin-bottom: 20px;
-            font-weight: 600;
+            font-weight: 400;
         }
 
         .welcome-buttons {
@@ -144,12 +144,14 @@
 
         .text {
             color: #f2f2f2;
-            font-size: 15px;
+            font-size: 18px;
             padding: 8px 12px;
             position: absolute;
             bottom: 8px;
             width: 100%;
             text-align: center;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background for text readability */
+            box-sizing: border-box;
         }
 
         .dot {
@@ -165,6 +167,36 @@
 
         .active, .dot:hover {
             background-color: #717171;
+        }
+
+        /* Success Stories Section */
+        .success-stories {
+            text-align: center;
+            font-size: 2rem;
+            color: #FF69B4; /* Bright and vibrant color */
+            font-weight: bold;
+            margin: 50px 0;
+            text-shadow: 2px 2px 5px rgba(0, 255, 255, 0.6);
+        }
+
+        /* Footer Section */
+        footer {
+            background-color: #111;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: #1DB954;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -188,19 +220,30 @@
 
     <!-- Welcome Section -->
     <div class="welcome" id="welcome-section">
-        <h2>Are you an artist starting your music career? Look no further; we are here to help.</h2>
-        <h2>Your Mus(ic) Records is a music label that inspires and connects like-minded artists.</h2>
-        <h2>Dedicated to music education, production, and distribution, Your Mus(ic) Records is a place where awesome tracks are composed.</h2>
+        <h2>Are you an artist starting your music career? Look no further; we are here to help</h2>
+        <h2>Your Mus(ic) Records is a music label that inspires and connects like-minded artists</h2>
+        <h2>Dedicated to music education, production, and distribution, Your Mus(ic) Records is a place where awesome tracks are composed
+        </h2>
+        <h2> We want to help artist jump start their careers by providing them sample music to write to, lyrics to produce music to and 
+            <br> educate them on the music industry </h2>
+            <h2>Our website is grounded in communtiy and are users rely on each other for inspiration
+            and knowledge
+        </h2>
+
     </div>
 
-    <!-- Register & Login Links -->
-    <div class="welcome-buttons" id="welcome-buttons">
-        <h3>Join our users today to get started! Take a chance on us</h3>
-        <a href="http://localhost/register">Register</a>
-        <a href="http://localhost/login">Login</a>
-        <h3>Our Success Stories</h3>
+        <!-- Register & Login Links -->
+        <div class="welcome-buttons" id="welcome-buttons">
+            <h3>Join our users today to get started! Take a chance on us</h3>
+            <a href="http://localhost/register">Register</a>
+            <a href="http://localhost/login">Login</a>
+        </div>
+
+    <!-- Success Stories Section -->
+    <div class="success-stories">
+        Our Success Stories
     </div>
-    
+
     <!-- Slideshow Section -->
     <div class="slideshow-container">
         <div class="mySlides">
