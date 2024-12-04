@@ -15,9 +15,13 @@
         /* General Styles */
         body {
             margin: 0;
-            font-family: 'Karla', sans-serif;
+            font-family: 'Karla', sans-serif; /* Use Karla font for the whole page */
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
+            overflow-x: hidden;
         }
 
+        /* Banner Section */
         .banner {
             position: relative;
             height: 100vh;
@@ -32,7 +36,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: -1; /* Keep the video behind text */
+            z-index: -1;
         }
 
         .banner-text {
@@ -42,13 +46,14 @@
             transform: translate(-50%, -50%);
             color: white;
             text-align: center;
-            z-index: 1; /* Ensure text is above video */
+            z-index: 1;
         }
 
         .banner-text h1 {
             font-size: 3rem;
-            font-weight: bold;
+            font-weight: 700;
             margin: 0;
+            text-transform: uppercase;
         }
 
         .banner-text p {
@@ -56,64 +61,86 @@
             margin-top: 10px;
         }
 
+        /* Techno-themed Welcome Section */
         .welcome {
             text-align: center;
-            padding: 30px;
+            padding: 50px 20px;
+            background-color: #000000; /* Black background */
+            color: #fff; /* White text */
+            margin-top: -50px; /* Pull it slightly up for smoother transition */
+            border-radius: 10px;
+            opacity: 0; /* Initially hidden */
+            transform: translateY(50px); /* Start from below */
+            transition: opacity 0.6s ease, transform 0.6s ease; /* Smooth animation */
         }
 
         .welcome h2 {
+            font-size: 1.5rem;
+            color: #fff; /* White text */
             margin-bottom: 20px;
+            line-height: 1.6;
+            font-weight: 600;
         }
 
+        /* Styling for Register and Login buttons */
         .welcome-buttons {
-            margin-top: 20px;
+            margin-top: 30px;
+            text-align: center;
+            background-color: #000; /* Black background for the button section */
+            padding: 20px;
+            opacity: 0; /* Initially hidden */
+            transform: translateY(50px); /* Start from below */
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
-        .welcome-buttons button {
-            padding: 10px 20px;
+        .welcome-buttons h3 {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .welcome-buttons a {
+            padding: 12px 30px;
             margin: 10px;
             font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .login-btn {
             background-color: #1DB954;
             color: white;
-        }
-
-        .login-btn:hover {
-            background-color: #1aa34a;
-        }
-
-        .create-account-btn {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        .create-account-btn:hover {
-            background-color: #45a049;
-        }
-
-        .container {
-            text-align: center;
-            margin: 30px;
-        }
-
-        #playlist {
-            margin-top: 20px;
-        }
-
-        /* Styling for links */
-        .link {
+            border-radius: 5px;
             text-decoration: none;
-            color: #1DB954;
-            font-size: 16px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 255, 0, 0.6); /* Glow effect */
         }
 
-        .link:hover {
-            color: #1aa34a;
+        .welcome-buttons a:hover {
+            background-color: #00FF00;
+            box-shadow: 0 0 15px #00FF00, 0 0 30px #00FF00; /* Neon glow on hover */
+        }
+
+        /* Optional: Styling for smaller devices */
+        @media (max-width: 768px) {
+            .banner-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .banner-text p {
+                font-size: 1.1rem;
+            }
+
+            .welcome h2 {
+                font-size: 1.3rem;
+            }
+
+            .welcome-buttons a {
+                padding: 10px 25px;
+            }
+        }
+
+        /* Animation trigger class */
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -122,7 +149,6 @@
     <!-- Banner Section -->
     <section class="banner">
         <div class="banner-video">
-            <!-- Adding multiple source formats for compatibility -->
             <video autoplay loop muted>
                 <source src="./assets/pictures/banner.mp4" type="video/mp4">
                 <source src="./assets/pictures/banner.ogv" type="video/ogg">
@@ -137,20 +163,39 @@
     </section>
 
     <!-- Welcome Section -->
-    <div class="welcome">
+    <div class="welcome" id="welcome-section">
         <h2>Are you an artist starting your music career? Look no further; we are here to help.</h2>
-        <h2>Your Mus(ic) Records is a music label that inspires and connects like-minded artists</h2>
-        <h2>Dedicated to music education, production and distribution, Your Mus(ic) Records is a place
-            where awesome tracks are composed</h2>
-        <h2></h2>
+        <h2>Your Mus(ic) Records is a music label that inspires and connects like-minded artists.</h2>
+        <h2>Dedicated to music education, production, and distribution, Your Mus(ic) Records is a place where awesome tracks are composed.</h2>
     </div>
 
     <!-- Register & Login Links -->
-    <div class="welcome-buttons">
+    <div class="welcome-buttons" id="welcome-buttons">
         <h3>Join our users today to get started!</h3>
         <a href="http://localhost/register" class="link">Register</a>
         <a href="http://localhost/login" class="link">Login</a>
     </div>
 
+    <script>
+        // Create an IntersectionObserver to detect when sections are in view
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 }); // Trigger when 50% of the element is in view
+
+        // Target elements to animate
+        const welcomeSection = document.getElementById('welcome-section');
+        const welcomeButtons = document.getElementById('welcome-buttons');
+
+        // Add the observer to the elements
+        observer.observe(welcomeSection);
+        observer.observe(welcomeButtons);
+    </script>
 </body>
 </html>
+
+
