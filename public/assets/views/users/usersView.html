@@ -9,230 +9,266 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="icon" type="image/x-icon" href="./assets/pictures/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* General body style */
         body {
-            background-color: #1f1f1f;
+            background-image: url('./assets/pictures/writingbackground.jpg');
             color: #ffffff;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Karla', sans-serif;
             text-align: center;
-            padding-top: 50px;
+            padding-top: 30px;
         }
 
-        /* Welcome message styling */
-        #user-container h4 {
-            font-size: 3rem;
+        .wrapper {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+
+        .wrapper h4 {
+            color: #141e30;
+            font-size: 2.5rem;
             font-weight: 700;
-            color: #f39c12;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
-            animation: fadeIn 2s ease-out, slideIn 1.5s ease-out;
         }
 
-        /* Smooth fade-in animation */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
+        .wrapper h5 {
+            font-style: italic;
+            color: #4caf50;
+            font-size: 1.2rem;
+            margin-top: 10px;
         }
 
-        /* Slide-in from the top animation */
+        #logout-button {
+            background: linear-gradient(145deg, #ff7e5f, #feb47b);
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 10px 25px;
+            border-radius: 25px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        #logout-button:hover {
+            background: linear-gradient(145deg, #feb47b, #ff7e5f);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .audio-box {
+            background: linear-gradient(145deg, #c0c0ee, #6aeaec71);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            animation: slideIn 1s ease;
+        }
+
         @keyframes slideIn {
             from {
-                transform: translateY(-50px);
+                transform: translateY(50px);
                 opacity: 0;
             }
-
             to {
                 transform: translateY(0);
                 opacity: 1;
             }
         }
 
-        /* Logout button styling */
-        #logout-button {
-            background: linear-gradient(145deg, #f39c12, #ff7f00);
-            border: none;
-            color: white;
-            font-size: 1.2rem;
-            font-weight: bold;
-            padding: 12px 30px;
-            border-radius: 30px;
-            transition: 0.3s ease-in-out;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-        }
-
-        /* Hover effect for the logout button */
-        #logout-button:hover {
-            background: linear-gradient(145deg, #ff7f00, #f39c12);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
-            transform: translateY(-5px);
-        }
-
-        #logout-button:active {
-            transform: translateY(5px);
-        }
-
-        /* Responsive container */
-        .container {
-            margin-top: 20px;
-        }
-
-        .margin-thirty {
-            margin-top: 30px;
-        }
-
-        .margin-twenty {
-            margin-top: 20px;
-        }
-
-        /* Styling for the audio grid */
-        .audio-box {
-            background-color: #333;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 10px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
-        }
-
         .audio-box:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .audio-box audio {
-            width: 100%;
-            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .audio-caption {
-            color: #f39c12;
-            font-weight: 600;
-            margin-top: 10px;
+            color: #333333;
+            font-weight: bold;
+            margin: 10px 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .comment-section textarea {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 5px;
+            font-size: 1rem;
+        }
+
+        .comment-section button {
+            margin-top: 5px;
+            background-color: #008cba;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .comment-section button:hover {
+            background-color: #005f73;
         }
     </style>
 </head>
 
 <body>
-    <div id="user-container" class="container users-form margin-thirty"></div>
+    <div class="wrapper">
+        <div id="user-container" class="container users-form"></div>
+        <h5>Ready, set, go, write! Write lyrics to the music below, find your MUS</h5>
 
-    <!-- 3x3 Grid of Sound Clips -->
-    <div class="container mt-4">
-        <div class="row">
-            <!-- Box 1 -->
-            <div class="col-md-4 mb-4">
-                <div class="audio-box">
-                    <audio controls>
-                        <source src="./assets/audio/mysbeat.wav" type="audio/wav">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <div class="audio-caption">Sound Clip 1</div>
+        <div class="container mt-4">
+            <div class="row">
+                <!-- Sound Clip 1 -->
+                <div class="col-md-4 mb-4">
+                    <div class="audio-box">
+                        <audio controls>
+                            <source src="./assets/audio/mysbeat.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <div class="audio-caption">Sound Clip 1</div>
+                        <div class="comment-section">
+                            <textarea placeholder="Add your comment here..."></textarea>
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sound Clip 2 -->
+                <div class="col-md-4 mb-4">
+                    <div class="audio-box">
+                        <audio controls>
+                            <source src="./assets/audio/sci-fi.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <div class="audio-caption">Sound Clip 2</div>
+                        <div class="comment-section">
+                            <textarea placeholder="Add your comment here..."></textarea>
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sound Clip 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="audio-box">
+                        <audio controls>
+                            <source src="./assets/audio/morning.mp3" type="audio/mp3">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <div class="audio-caption">Folk, Middle of Farm Type Beat</div>
+                        <div class="comment-section">
+                            <textarea placeholder="Add your comment here..."></textarea>
+                            <button>Submit</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Box 2 -->
-            <div class="col-md-4 mb-4">
-                <div class="audio-box">
-                    <audio controls>
-                        <source src="./assets/audio/sci-fi.wav" type="audio/wav">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <div class="audio-caption">Sound Clip 2</div>
+            <div class="row">
+                <!-- Sound Clip 4 -->
+                <div class="col-md-4 mb-4">
+                    <div class="audio-box">
+                        <audio controls>
+                            <source src="./assets/audio/funny-garage.mp3" type="audio/mp3">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <div class="audio-caption">Remind you of something?</div>
+                        <div class="comment-section">
+                            <textarea placeholder="Add your comment here..."></textarea>
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sound Clip 5 -->
+                <div class="col-md-4 mb-4">
+                    <div class="audio-box">
+                        <audio controls>
+                            <source src="./assets/audio/horror.mp3" type="audio/mp3">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <div class="audio-caption">Spooky</div>
+                        <div class="comment-section">
+                            <textarea placeholder="Add your comment here..."></textarea>
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sound Clip 6 -->
+                <div class="col-md-4 mb-4">
+                    <div class="audio-box">
+                        <audio controls>
+                            <source src="./assets/audio/bbackground.mp3" type="audio/mp3">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <div class="audio-caption">Pop</div>
+                        <div class="comment-section">
+                            <textarea placeholder="Add your comment here..."></textarea>
+                            <button>Submit</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Box 3 -->
-            <div class="col-md-4 mb-4">
-                <div class="audio-box">
-                    <audio controls>
-                        <source src="./assets/audio/morning.mp3" type="audio/mp3">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <div class="audio-caption">Folk, Middle of Farm Type Beat</div>
+            <div class="row">
+                <!-- Sound Clip 7 -->
+                <div class="col-md-4 mb-4">
+                    <div class="audio-box">
+                        <audio controls>
+                            <source src="./assets/audio/steampunk.mp3" type="audio/mp3">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <div class="audio-caption">Get Punky</div>
+                        <div class="comment-section">
+                            <textarea placeholder="Add your comment here..."></textarea>
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sound Clip 8 -->
+                <div class="col-md-4 mb-4">
+                    <div class="audio-box">
+                        <audio controls>
+                            <source src="./assets/audio/snow.mp3" type="audio/mp3">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <div class="audio-caption">Snowy</div>
+                        <div class="comment-section">
+                            <textarea placeholder="Add your comment here..."></textarea>
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sound Clip 9 -->
+                <div class="col-md-4 mb-4">
+                    <div class="audio-box">
+                        <audio controls>
+                            <source src="./assets/audio/martin.mp3" type="audio/mp3">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <div class="audio-caption">Classical Vibes</div>
+                        <div class="comment-section">
+                            <textarea placeholder="Add your comment here..."></textarea>
+                            <button>Submit</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <!-- Box 4 -->
-            <div class="col-md-4 mb-4">
-                <div class="audio-box">
-                    <audio controls>
-                        <source src="./assets/audio/funny-garage.mp3" type="audio/mp3">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <div class="audio-caption">Remind you of something?</div>
-                </div>
-            </div>
-
-            <!-- Box 5 -->
-            <div class="col-md-4 mb-4">
-                <div class="audio-box">
-                    <audio controls>
-                        <source src="./assets/audio/horror.mp3" type="audio/mp3">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <div class="audio-caption">Spooky</div>
-                </div>
-            </div>
-
-            <!-- Box 6 -->
-            <div class="col-md-4 mb-4">
-                <div class="audio-box">
-                    <audio controls>
-                        <source src="./assets/audio/bbackground.mp3" type="audio/mp3">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <div class="audio-caption">Pop</div>
-                </div>
-            </div>
+        <div class="container text-center mt-4">
+            <button id="logout-button" class="btn btn-danger">Logout</button>
         </div>
-
-        <div class="row">
-            <!-- Box 7 -->
-            <div class="col-md-4 mb-4">
-                <div class="audio-box">
-                    <audio controls>
-                        <source src="./assets/audio/steampunk.mp3" type="audio/mp3">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <div class="audio-caption">Get Punky</div>
-                </div>
-            </div>
-
-            <!-- Box 8 -->
-            <div class="col-md-4 mb-4">
-                <div class="audio-box">
-                    <audio controls>
-                        <source src="./assets/audio/snow.mp3" type="audio/mp3">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <div class="audio-caption">Snowy</div>
-                </div>
-            </div>
-
-            <!-- Box 9 -->
-            <div class="col-md-4 mb-4">
-                <div class="audio-box">
-                    <audio controls>
-                        <source src="./assets/audio/upbeat.mp3" type="audio/mp3">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <div class="audio-caption">Upbeat Indie</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container users-form margin-twenty">
-        <button id="logout-button" class="btn btn-danger">Logout</button>
     </div>
 
     <script>
@@ -269,5 +305,3 @@
 </body>
 
 </html>
-
-
